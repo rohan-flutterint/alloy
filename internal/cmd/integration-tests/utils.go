@@ -90,8 +90,8 @@ func runSingleTest(alloyBinaryPath string, testDir string, port int) {
 	}
 }
 
-func runAllTests(alloyBinaryPath string) {
-	testDirs, err := filepath.Glob("./tests/*")
+func runAllTests(alloyBinaryPath string, testFolder string) {
+	testDirs, err := filepath.Glob(testFolder + "*")
 	if err != nil {
 		panic(err)
 	}

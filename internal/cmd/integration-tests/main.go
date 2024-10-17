@@ -61,6 +61,6 @@ func runIntegrationTests(cmd *cobra.Command, args []string) {
 			panic(err)
 		}
 		logChan = make(chan TestLog, len(testDirs))
-		runAllTests(alloyBinaryPath)
+		runAllTests(alloyBinaryPath, testFolder)
 	}
 }
