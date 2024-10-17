@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"runtime"
 	"strings"
 
 	"github.com/spf13/cobra"
@@ -35,7 +36,11 @@ func runIntegrationTests(cmd *cobra.Command, args []string) {
 	if !skipBuild {
 		buildAlloy()
 	}
-	setupEnvironment()
+	if runtime.GOOS != "windows" {
+		setupEnvironment()
+	} else {
+		fmt.Println("Skipping environment setup on Windows.")
+	}
 
 	if specificTest != "" {
 		fmt.Println("Running", specificTest)
