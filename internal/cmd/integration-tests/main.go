@@ -38,13 +38,13 @@ func runIntegrationTests(cmd *cobra.Command, args []string) {
 	}
 
 	testFolder := "./tests/"
-	alloyBinaryPath := filepath.Join("..", "..", "..", "..", "..", "build", "alloy")
+	alloyBinaryPath := "../../../../../build/alloy"
 
 	if runtime.GOOS != "windows" {
 		setupEnvironment()
 	} else {
 		testFolder = "./tests-windows/"
-		alloyBinaryPath += ".exe"
+		alloyBinaryPath = "..\\..\\..\\..\\..\\alloy.exe"
 		fmt.Println("Skipping environment setup on Windows.")
 	}
 
