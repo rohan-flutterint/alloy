@@ -2,6 +2,7 @@ services:
 
   mimir:
     image: grafana/mimir:2.10.4
+    platform: linux/amd64
     volumes:
       - ./configs/mimir:/etc/mimir-config
     entrypoint:
