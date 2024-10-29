@@ -33,20 +33,23 @@ func runIntegrationTests(cmd *cobra.Command, args []string) {
 	defer reportResults()
 	defer cleanUpEnvironment()
 
-	if !skipBuild {
-		buildAlloy()
-	}
-
 	testFolder := "./tests/"
 	alloyBinaryPath := "../../../../../build/alloy"
+	alloyBinary := "build/alloy"
+	dockerComposeFile := "docker-compose.yaml"
 
-	if runtime.GOOS != "windows" {
-		setupEnvironment()
-	} else {
+	if runtime.GOOS == "windows" {
 		testFolder = "./tests-windows/"
-		//alloyBinaryPath = "..\\..\\..\\..\\..\\build\\alloy"
-		fmt.Println("Skipping environment setup on Windows.")
+		alloyBinaryPath = "..\\..\\..\\..\\..\\build\\alloy.exe"
+		alloyBinary = "build/alloy.exe"
+		dockerComposeFile = "docker-compose.windows.yaml"
 	}
+
+	if !skipBuild {
+		buildAlloy(alloyBinary)
+	}
+
+	setupEnvironment(dockerComposeFile)
 
 	if specificTest != "" {
 		fmt.Println("Running", specificTest)

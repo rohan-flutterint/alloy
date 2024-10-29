@@ -30,12 +30,12 @@ func executeCommand(command string, args []string, taskDescription string) {
 	}
 }
 
-func buildAlloy() {
-	executeCommand("make", []string{"-C", "../../..", "alloy"}, "Building Alloy")
+func buildAlloy(alloyBinary string) {
+	executeCommand("make", []string{"-C", "../../..", "alloy", fmt.Sprintf("ALLOY_BINARY=%s", alloyBinary)}, "Building Alloy")
 }
 
-func setupEnvironment() {
-	executeCommand("docker", []string{"compose", "up", "-d"}, "Setting up environment with Docker Compose")
+func setupEnvironment(dockerComposeFile string) {
+	executeCommand("docker", []string{"compose", "-f", dockerComposeFile, "up", "-d"}, "Setting up environment with Docker Compose")
 	fmt.Println("Sleep for 45 seconds to ensure that the env has time to initialize...")
 	time.Sleep(45 * time.Second)
 }
@@ -83,6 +83,9 @@ func runSingleTest(alloyBinaryPath string, testDir string, port int) {
 			TestOutput: string(testOutput),
 		}
 	}
+
+	// sleep for a few seconds before deleting the files to make sure that they are not use anymore
+	time.Sleep(5 * time.Second)
 
 	err = os.RemoveAll(filepath.Join(testDir, "data-alloy"))
 	if err != nil {
