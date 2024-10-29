@@ -44,7 +44,7 @@ func runIntegrationTests(cmd *cobra.Command, args []string) {
 		setupEnvironment()
 	} else {
 		testFolder = "./tests-windows/"
-		alloyBinaryPath = "..\\..\\..\\..\\..\\build\\alloy"
+		//alloyBinaryPath = "..\\..\\..\\..\\..\\build\\alloy"
 		fmt.Println("Skipping environment setup on Windows.")
 	}
 
