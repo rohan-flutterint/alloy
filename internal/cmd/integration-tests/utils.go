@@ -35,7 +35,7 @@ func buildAlloy(alloyBinary string) {
 }
 
 func setupEnvironment(dockerComposeFile string) {
-	executeCommand("docker", []string{"compose", "-f", dockerComposeFile, "up", "-d"}, "Setting up environment with Docker Compose")
+	executeCommand("docker", []string{"compose", "--platform", "linux/amd64", "-f", dockerComposeFile, "up", "-d"}, "Setting up environment with Docker Compose")
 	fmt.Println("Sleep for 45 seconds to ensure that the env has time to initialize...")
 	time.Sleep(45 * time.Second)
 }
